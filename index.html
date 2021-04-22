@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body>
+    <h1>Altitude Adjuster</h1>
+
+    <div class="vol-weight-select">
+      <span>I want my inputs and results in: </span>
+      <select name="vw-select" id="vw-select" onchange="handleMeasureChange()">
+        <option value="weight-specific">Weight</option>
+        <option value="vol-specific">Volume</option>
+      </select>
+      <p>Note: Chemical Leaveners are always shown in volumes.</p>
+    </div>
+
+    <h2>Rules</h2>
+    <div class="rules-container">
+      <table>
+        <tr>
+          <th></th>
+          <th>3000 ft</th>
+          <th>5000 ft</th>
+          <th>7000 ft</th>
+          <th>10000 ft</th>
+        </tr>
+
+        <tr>
+          <td><b>Flour</b></td>
+          <td>
+            <span class="weight-specific">Add 8g for every 125g</span>
+            <span class="vol-specific">Add 1T for every 1C</span>
+          </td>
+          <td>
+            <span class="weight-specific">Add 16g for every 125g</span>
+            <span class="vol-specific">Add 2T for every 1C</span>
+          </td>
+          <td>
+            <span class="weight-specific">Add 24g for every 125g</span>
+            <span class="vol-specific">Add 3T for every 1C</span>
+          </td>
+          <td>
+            <span class="weight-specific">Add 32g for every 125g</span>
+            <span class="vol-specific">Add 4T for every 1C</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><b>Chemical Leavener</b></td>
+          <td>
+            <span class="weight-specific">Decrease each 1t by 1/8t</span>
+            <span class="vol-specific">Decrease each 1t by 1/8t</span>
+          </td>
+          <td>
+            <span class="weight-specific">Decrease each 1t by 1/4t</span>
+            <span class="vol-specific">Decrease each 1t by 1/4t</span>
+          </td>
+          <td>
+            <span class="weight-specific">Decrease each 1t by 1/2t</span>
+            <span class="vol-specific">Decrease each 1t by 1/2t</span>
+          </td>
+          <td>
+            <span class="weight-specific">Decrease each 1t by 2/3t</span>
+            <span class="vol-specific">Decrease each 1t by 2/3t</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><b>Sugar</b></td>
+          <td>
+            <span class="weight-specific">Decrease every 200g by 12.5g</span>
+            <span class="vol-specific">Decrease each 1C by 1T</span>
+          </td>
+          <td>
+            <span class="weight-specific">Decrease every 200g by 25g</span>
+            <span class="vol-specific">Decrease each 1C by 2T</span>
+          </td>
+          <td>
+            <span class="weight-specific">Decrease every 200g by 37.5g</span>
+            <span class="vol-specific">Decrease each 1C by 3T</span>
+          </td>
+          <td>
+            <span class="weight-specific">Decrease every 200g by 50g</span>
+            <span class="vol-specific">Decrease each 1C by 4T</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><b>Liquid (Milk/Water)</b></td>
+          <td>
+            <span class="weight-specific">Add 15g for every 242g</span>
+            <span class="vol-specific">Add 1T for every 1C</span>
+          </td>
+          <td>
+            <span class="weight-specific">Add 30g for every 242g</span>
+            <span class="vol-specific">Add 2T for every 1C</span>
+          </td>
+          <td>
+            <span class="weight-specific">Add 45g for every 242g</span>
+            <span class="vol-specific">Add 3T for every 1C</span>
+          </td>
+          <td>
+            <span class="weight-specific">Add 60g for every 242g</span>
+            <span class="vol-specific">Add 4T for every 1C</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <h2>Your Recipe</h2>
+    <div class="inputs-container">
+      <div class="rules-container">
+        <table>
+          <tr>
+            <th></th>
+            <th>Original Amount</th>
+            <th>3000 ft</th>
+            <th>5000 ft</th>
+            <th>7000 ft</th>
+            <th>10000 ft</th>
+          </tr>
+  
+          <tr>
+            <td><b>Flour</b></td>
+            <td>
+              <input id="flour-amount" type="number"/>
+              <span class="weight-specific">g</span>
+              <span class="vol-specific">C</span>
+            </td>
+            <td id="flour-0">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="flour-1">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="flour-2">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="flour-3">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+          </tr>
+  
+          <tr>
+            <td><b>Baking Powder</b></td>
+            <td>
+              <input id="bp-amount" type="number"/>
+              <span class="weight-specific">t</span>
+              <span class="vol-specific">t</span>
+            </td>
+            <td id="bp-0">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="bp-1">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="bp-2">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="bp-3">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+          </tr>
+
+          <tr>
+            <td><b>Baking Soda</b></td>
+            <td>
+              <input id="bs-amount" type="number"/>
+              <span class="weight-specific">t</span>
+              <span class="vol-specific">t</span>
+            </td>
+            <td id="bs-0">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="bs-1">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="bs-2">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="bs-3">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+          </tr>
+  
+          <tr>
+            <td><b>Sugar</b></td>
+            <td>
+              <input id="sugar-amount" type="number"/>
+              <span class="weight-specific">g</span>
+              <span class="vol-specific">C</span>
+            </td>
+            <td id="sugar-0">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="sugar-1">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="sugar-2">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="sugar-3">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+          </tr>
+  
+          <tr>
+            <td><b>Liquid</b></td>
+            <td>
+              <input id="liquid-amount" type="number"/>
+              <span class="weight-specific">g</span>
+              <span class="vol-specific">C</span>
+            </td>
+            <td id="liquid-0">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="liquid-1">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="liquid-2">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+            <td id="liquid-3">
+              <span class="weight-specific"></span>
+              <span class="vol-specific"></span>
+            </td>
+          </tr>
+        </table>
+        <button onclick="calcRecipeChanges()">Calculate</button>
+    </div>
+  </body>
+
+  <script type="text/javascript" src="./js/fraction.js"></script>
+  <script type="text/javascript" src="./js/converter.js"></script>
+  <script type="text/javascript" src="./index.js"></script>
+</html>
